@@ -26,6 +26,3 @@ Template.cabeceraPC.helpers({
     ],
 });
 
-Template.cabeceraSmall.onRendered(function(){
-  this.$('.ui.sticky').sticky({ context: '#contenido'});
-});
