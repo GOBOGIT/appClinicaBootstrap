@@ -1,6 +1,6 @@
 <template name="inicio">
     {{> cabecera}}
-    <div id="opcionesInicio" class=" ui grid">
+    <div id="opcionesInicio" class="row">
         {{> inicioPpal }}
     </div>
     {{> footer}}
@@ -8,30 +8,37 @@
 
 <template name="inicioPpal">
     <!-- contenido -->
-    <div class="ui horizontal divider"></div>
-    <div  class="ui four cards centered grid stackable">
-        <div class="ui orange link  centered card ">
-            <a class="image" href="/estudios"><img src="images/500x500.png"></a>
-            <div class="content">
-                <a class="header" href="#">Estudios clínicos</a>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card ">
+                <img class="card-img-top img-fluid" src="images/500x500.png" alt="Card image cap">
+                <div class="card-block">
+                    <p class="card-text"><a class="header" href="#">Estudios clínicos</a></p>
+                </div>
             </div>
         </div>
-        <div class="ui olive link centered card">
-            <a class="image" href="clinicas.html"><img src="images/500x500.png"></a>
-            <div class="content">
-                <a class="header" href="#">Clínicas</a>
+        <div class="col-sm-3">
+            <div class="card">
+                <img class="card-img-top img-fluid" src="images/500x500.png" alt="Card image cap">
+                <div class="card-block">
+                    <p class="card-text"><a class="header" href="#">Estudios clínicos</a></p>
+                </div>
             </div>
         </div>
-        <div class="ui teal  link centered card">
-            <a class="image" href="#"><img src="images/500x500.png"></a>
-            <div class="content">
-                <a class="header" href="#">Avisos</a>
+        <div class="col-sm-3">
+            <div class="card">
+                <img class="card-img-top img-fluid" src="images/500x500.png" alt="Card image cap">
+                <div class="card-block">
+                    <p class="card-text"><a class="header" href="#">Estudios clínicos</a></p>
+                </div>
             </div>
         </div>
-        <div class="ui teal  link centered card">
-            <a class="image" href="#"><img src="images/500x500banners.png"></a>
-            <div class="content">
-                <a class="header" href="#">Promociones</a>
+        <div class="col-sm-3">
+            <div class="card">
+                <img class="card-img-top img-fluid" src="images/500x500.png" alt="Card image cap">
+                <div class="card-block">
+                    <p class="card-text"><a class="header" href="#">Estudios clínicos</a></p>
+                </div>
             </div>
         </div>
     </div>

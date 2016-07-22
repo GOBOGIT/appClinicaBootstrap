@@ -1,77 +1,62 @@
-<template name="avisos">
-    <!-- contenido -->
-    <div id="contenido" class="ui grid">
-        {{> cabecera}}           
-       <!-- menú busqueda -->
-        <div class="ui one item text menu wide filtros stackable">
-            <div class="item">
-                <div class="ui selection dropdown">
-                    <input name="gender" type="hidden">
-                    <div class="default text">Tipo de aviso</div>
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                        <div class="item" data-value="0">Promociones</div>
-                        <div class="item" data-value="2">Urgencias médicas</div>
-                        <div class="item" data-value="3">Noticias</div>
-                    </div>
-                </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <div class="ui button">
-                Limpiar filtros
-                </div>
-            </div>
-        </div>
-        <!--contenido -->
-        <div class="ui horizontal divider"></div>
-        <div class="ui ten wide centered column">
-            <div class="ui divided items">
-                <!-- item -->
-                <div class="ui fluid card">
-                    <div class="content">
-                        <div class="header">
-                            Nombre del aviso
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate elementum magna quis mollis. Suspendisse vel elementum mi. Etiam condimentum imperdiet quam. Duis sem ligula, vehicula quis volutpat ut, tincidunt ut eros. Vestibulum condimentum mi non cursus dictum. Vestibulum ut metus nec libero rutrum pellentesque. Fusce sit amet efficitur enim.
-                    </div>
-                     <div class="extra content">
-                        <h4 class="ui header">
-                            Estudio asociado
-                        </h4>
-                        <div class="description">
-                            info estudio asociado acotado.
-                        </div>
-                    </div>
-                      <div class="ui bottom attached button">
-                        <i class="add icon"></i>
-                        ir a estudio asociado
-                    </div>
-                </div>
-                <!-- item -->
-                <div class="ui fluid card">
-                    <div class="content">
-                        <div class="header">
-                            Nombre del aviso
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate elementum magna quis mollis. Suspendisse vel elementum mi. Etiam condimentum imperdiet quam. Duis sem ligula, vehicula quis volutpat ut, tincidunt ut eros. Vestibulum condimentum mi non cursus dictum. Vestibulum ut metus nec libero rutrum pellentesque. Fusce sit amet efficitur enim.
-                    </div>
-                </div>
-                <div class="ui fluid card">
-                    <div class="content">
-                        <div class="header">
-                            Nombre del aviso
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate elementum magna quis mollis. Suspendisse vel elementum mi. Etiam condimentum imperdiet quam. Duis sem ligula, vehicula quis volutpat ut, tincidunt ut eros. Vestibulum condimentum mi non cursus dictum. Vestibulum ut metus nec libero rutrum pellentesque. Fusce sit amet efficitur enim.
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+<template name="avisosPpal">
+    {{> cabecera}}
+    <div class="row">
+        {{> avisos}}
     </div>
     {{> footer}}
+</template>
+
+<template name="avisos">
+    <!-- contenido -->
+    <!-- menú busqueda -->
+    {{> filtroAvisos}}
+    <!-- lista dummie -->
+    <div class="contenidoBloque row">
+        <div class="col-md-8 col-md-offset-2">
+
+            <!-- loop items en Estudios -->
+            {{> itemAvisos }}
+
+        </div>
+    </div>
+</template>
+
+<template name="itemAvisos">
+    <!-- item -->
+    <div class="card">
+        <div class="card-header">Nombre aviso</div>
+        <div class="card-block">
+            <p class="card-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate elementum magna quis mollis. Suspendisse vel elementum
+                mi. Etiam condimentum imperdiet quam. Duis sem ligula, vehicula quis volutpat ut, tincidunt ut eros. Vestibulum
+                condimentum mi non cursus dictum. Vestibulum ut metus nec libero rutrum pellentesque. Fusce sit amet efficitur
+                enim.
+            </p>
+        </div>
+        <div class="card-block">
+            <h5>Estudio asociado</h5>
+            <p class="card-text">info estudio asociado acotado.</p>
+
+            <a href="#" class="btn btn-primary">Ir al estudio asociado</a>
+        </div>
+
+    </div>
+
+
+</template>
+
+
+<template name="filtroAvisos">
+    <div class="nav nav-inline" style="text-align:center">
+        <div class="nav-item cavisos dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">Tipo de aviso</button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <a class="cs dropdown-item" data-value="{{ id }}">Promociones</a>
+                <a class="cs dropdown-item" data-value="{{ id }}">Urgencias médicas</a>
+                <a class="cs dropdown-item" data-value="{{ id }}">Noticias</a>
+            </div>
+        </div>
+        <button type="button" class="nav-item limpiar btn btn-secondary-outline">Limpiar filtros</button>
+    </div>
 </template>

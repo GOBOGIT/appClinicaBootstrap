@@ -1,9 +1,9 @@
 <template name="estudiosPpal">
-    {{> cabecera}} 
-    <div class=" ui grid">       
-        {{> Template.dynamic template = main}} 
+    {{> cabecera}}
+    <div class=" row">
+        {{> Template.dynamic template = main}}
     </div>
-{{> footer}}
+    {{> footer}}
 </template>
 
 <template name="estudios">
@@ -11,127 +11,81 @@
     <!-- menú busqueda -->
     {{> filtrosEstudios }}
     <!-- lista dummie -->
-        <div class="contenidoBloque ui eight wide centered column">
-            <div class="ui divided link items">
+    <div class="contenidoBloque row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="list-group">
                 <!-- loop items en Estudios -->
                 {{> itemEstudios }}
             </div>
         </div>
+    </div>
 </template>
 
 <template name="estudio">
     <!--contenido -->
-    <div class="ui horizontal divider"></div>
-    <div class="contenidoBloque ui sixteen wide column">
-        <div class="ui two column grid stackable">
-            <!--columna izquierda -->
-            <div class="ten wide column">
-                <!-- info clinica -->
-                <div class="ui fluid card">
-                    <div class="content">
-                        <div class="header">
-                            {{#if estudios}} {{ estudios.titulo }} {{/if}}
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        <h4 class="ui header">información</h4>
-                        <p> {{ estudios.descripcion }}</p>
-                    </div>
-                    {{#if estudios.requisitos }}
-                    <div class="extra content">
-                        <h4 class="ui header">Requisitos</h4>
-                        <p>{{ estudios.requisitos }}</p>
-                    </div>
-                    {{/if }}
+    <div class="contenidoBloque row">
+        <!--columna izquierda -->
+        <div class="col-sm-8">
+            <!-- info clinica -->
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">{{#if estudios}} {{ estudios.titulo }} {{/if}}</h4>
+                    <h5>Informacion</h5>
+                    <p class="card-text">{{ estudios.descripcion }}</p>
                 </div>
-                <!-- banner -->
-                <div class="ui fluid card">
-                    <div class="image banner25">
-                        <img src="images/500x150banners.png">
-                    </div>
+                {{#if estudios.requisitos }}
+                <div class="card-block">
+                    <h5>Requisitos</h5>
+                    <p class="card-text">{{ estudios.requisitos }}</p>
+                </div>
+                {{/if }}
+            </div>
+            <!-- banner -->
+            <div class="card">
+                <img class="card-img-top img-fluid" src="images/500x150banners.png" alt="Card image cap">
+            </div>
+        </div>
+        <!-- columna derecha -->
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">Clínicas que ofrecen éste estudio</div>
+                <div class="list-group">
+                    <!-- item -->
+                    <a href="#" class="list-group-item">
+                        <div class="list-group-item-heading">Clinica 1</div>
+                        <p class="list-group-item-text">Dirección</p>
+                    </a>
+                    <!-- item -->
+                    <a href="#" class="list-group-item">
+                        <div class="list-group-item-heading">Clinica 2</div>
+                        <p class="list-group-item-text">Dirección</p>
+                    </a>
                 </div>
             </div>
-            <!-- columna derecha -->
-            <div class="six wide column">
-                <div class="ui fluid card">
-                    <div class="content">
-                        <div class="header">
-                            Clínicas que ofrecen éste estudio
-                        </div>
-                        <div class="description">
-                            <div class="ui horizontal divider">
-                                <i class="browser icon"></i>
-                            </div>
-                            <div class="ui divided link items">
-                                <!-- item -->
-                                <div class="item">
-                                    <div class="content">
-                                        <h4 class="ui header">
-                                            <a href="/clinica">Clínica 1</a>
-                                        </h4>
-                                        <div class="description">
-                                            <p>dirección</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- item -->
-                                <div class="item">
-                                    <div class="content">
-                                        <h4 class="ui header">
-                                            Clínica 2
-                                        </h4>
-                                        <div class="description">
-                                            <p>dirección</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="card">
+                <div class="card-header">Precio</div>
+                <div class="card-block">
+                    <p class="card-text">precios al cosumidor</p>
+                    <h2>{{ estudios.precio }}</h2>
                 </div>
-                <div class="ui fluid card">
-                    <div class="content">
-                        <div class="header">
-                            Precio
-                        </div>
-                        <div class="meta">
-                            precios al cosumidor
-                        </div>
-                        <div class="description">
-                            <div class="ui large horizontal statistic">
-                                <div class="value">
-                                    {{ estudios.precio }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{#if estudios.esPromo }}
-                    <div class="extra content">
-                        <i class="red heart icon"></i> está en promoción
-                        <p> <i class="wait icon"></i> promoción válida hasta el 20/12/2017</p>
-                    </div>
-                    {{/if}}
+                {{#if estudios.esPromo }}
+                <div class="card-block">
+                    ico corazon
+                    <p> <i class="wait icon"></i> promoción válida hasta el 20/12/2017</p>
                 </div>
+                {{/if}}
             </div>
         </div>
     </div>
 </template>
 
 <template name="itemEstudios">
-  <!-- item -->
-  {{#each estudios }}
-  <div class="item">
-    <div class="content">
-      <div class="header">
-        <a href="/estudios/{{ titulo }}">{{titulo }}</a>
-      </div>
-      <div class="description">
-        <p>{{ descripcion }}</p>
-      </div>
-      <div class="ui right floated">
-        {{#if esPromo}}<i class="like icon"></i>{{/if}}
-      </div>
-    </div>
-  </div>
-  {{/each}}
+    <!-- item -->
+    {{#each estudios }}
+    <a href="#" class="list-group-item" style="text-align-center">
+        <h5 class="list-group-item-heading"><a href="/estudios/{{ titulo }}">{{titulo }}</a></h5>
+        <p class="list-group-item-text">{{ descripcion }}</p>
+        {{#if esPromo}}Promo{{/if}}
+    </a>
+    {{/each}}
 </template>

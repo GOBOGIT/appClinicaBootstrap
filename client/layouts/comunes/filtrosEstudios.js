@@ -8,9 +8,10 @@ state = new ReactiveDict();
 
 Template.itemEstudios.onCreated(function(){
     state.set('btPromo', false);
+    state.set('nSexo','Sexo indistinto');
+    state.set('nestudio','Por tipo / todos');
         Meteor.subscribe('itemEstudios');
 });
-
 
 Template.filtrosEstudios.helpers({
     tipoEstudio: [
@@ -19,9 +20,16 @@ Template.filtrosEstudios.helpers({
     ],
  
     tipoSexo: function() {
-        
         return listaSexo;
+    },
+
+    nombreSexo:function(){
+        return state.get('nSexo');
+    },
+    nombreEstudio:function(){
+        return state.get('nestudio');
     }
+
 });
 
 // lee todos los documentos de la colleción estudios:
@@ -54,14 +62,16 @@ Template.filtrosEstudios.onRendered(function () {
 
 Template.filtrosEstudios.events({
     // recoge selección en dropdow tipo estudio
-    'change .csexo'(event) {
+    'click .cs'(event) {
         event.preventDefault();
-        state.set('csexo', event.target.value);
+        state.set('csexo',event.currentTarget.dataset.value);
+        state.set('nSexo',event.currentTarget.text)
     },
     
-    'change .cestudio'(event) {
+    'click .ce'(event) {
         event.preventDefault();
-        state.set('cestudio', event.target.value);
+        state.set('cestudio', event.currentTarget.dataset.value);
+        state.set('nestudio', event.currentTarget.text);
     },
 
     'click .limpiar'(event) {
@@ -70,6 +80,8 @@ Template.filtrosEstudios.events({
         state.set('csexo',"I");
         state.set('cestudio', "I");
         state.set('btPromo', false);
+        state.set('nSexo','Sexo indistinto');
+        state.set('nestudio','Por tipo / todos');
     },
 
     'click .btPromo'(event) {

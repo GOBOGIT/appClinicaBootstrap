@@ -1,39 +1,30 @@
 <!-- filtros de la seccion estudios -->
 <template name="filtrosEstudios">
   <!-- menú busqueda -->
-  <div class="ui one item text menu wide filtros stackable row">
-    <div class="item">
-      <!-- boton promocion -->
-      <div class="ui csexo selection dropdown">
-        <!-- input tipo sexo -->
-        <input name="sexoLista" type="hidden">
-        <div class="default text">Sexo indistinto</div>
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          {{#each tipoSexo}}
-          <div class="item" data-value="{{ id }}">{{ texto }}</div>
-          {{/each}}
-        </div>
-      </div>
-      <div class="ui cestudio selection dropdown">
-        <!-- input por estudio -->
-        <input name="tipo" type="hidden">
-        <div class="default text">Por tipo</div>
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          {{#each tipoEstudio}}
-          <div class="item" data-value="{{ id }}">{{ texto }}</div>
-          {{/each}}
-        </div>
-      </div>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <div class="ui btPromo toggle button">
-        Promoción
-      </div>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <div class="ui limpiar button ">
-        Limpiar filtros
+  <div class="nav nav-inline" style="text-align:center">
+    <!-- boton promocion -->
+    <div class="nav-item csexo dropdown">
+      <!-- input tipo sexo -->
+      <input name="sexoLista" type="hidden">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">{{ nombreSexo }}</button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        {{#each tipoSexo}}
+          <a  class="cs dropdown-item" data-value="{{ id }}">{{ texto }}</a> 
+        {{/each}}
       </div>
     </div>
+    <div class="nav-item cestudio dropdown">
+      <!-- input por estudio -->
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">{{ nombreEstudio }}</button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        {{#each tipoEstudio}}
+        <a class="ce dropdown-item" data-value="{{ id }}">{{ texto }}</a> 
+        {{/each}}
+      </div>
+    </div>
+    <button type="button" class="nav-item btPromo btn btn-secondary-outline">Promoción</button>
+    <button type="button" class="nav-item limpiar btn btn-secondary-outline">Limpiar filtros</button>
   </div>
 </template>

@@ -1,50 +1,43 @@
 <template name="cabecera">
+    {{> inicioSesion}}
     {{> Template.dynamic template = cabeceraSel }}
 </template>
 
 <!-- cabecera página principal -->
 <template name="cabeceraInicio">
     <!-- cabecera -->
-        <!-- menu -->
-        <div id="portada" class= "ui center aligned icon header">
-            {{> inicioSesion}}
-            <div class="ui horizontal divider"></div>
-            <i class="circular icon"></i>
-            <h1>titulo página</h1>
-            <h3>Subtitulo página</h3>
-        </div>
- </template>
+    <div id="portada" class="row">
+        <h1>titulo página</h1>
+        <h3>Subtitulo página</h3>
+    </div>
+</template>
 
 <!-- cabecera páginas -->
 <template name="cabeceraSmall">
     <!-- cabecera -->
-        <div id="portadaSmall" class="ui center">
-            <!-- menu -->
-            {{> inicioSesion }}
-        </div>
-        <div id="menuPantallas" class="ui four item fluid secondary pointing menu stackable sticky">
-            {{#each seccionesUsuario}}
-                <a href="{{ url }}" class="item {{#if urlDir seccion }} active {{/if}}">{{ seccion }}</a> 
-            {{/each}}
-        </div>
+    <div id="portadaSmall" class="row">
+    </div>
+    <div id="menuPantallas" class="nav nav-inline" style="text-align:center">
+        {{#each seccionesUsuario}}
+        <a href="{{ url }}" class="nav-link item {{#if urlDir seccion }} active {{/if}}">{{ seccion }}</a> {{/each}}
+    </div>
 </template>
 
 <!-- cabecera Panel de Control -->
 <template name="cabeceraPC">
-    <div id="portadaPC" class=" ui center">
+    <div id="portadaPC" class="rowr">
         <!-- menu -->
         {{> cerrarSesion }}
     </div>
-    <div id="menuPantallasPC" class="ui three item fluid secondary pointing menu stackable sticky">
+    <div id="menuPantallasPC" class="nav nav-inline">
         {{#each seccionesPC}}
-            <a class="item">{{ seccion }}</a> 
-        {{/each}}
+        <a class="nav-item">{{ seccion }}</a> {{/each}}
     </div>
 </template>
 
 <template name="inicioSesion">
-    <div style="text-align:left; padding:10px; background-color:lightblue">
-        &nbsp;800 600 345  
+    <div class="row" style="background-color:lightblue">
+        &nbsp;800 600 345
     </div>
 </template>
 

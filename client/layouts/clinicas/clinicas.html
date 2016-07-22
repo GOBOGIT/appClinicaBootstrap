@@ -1,7 +1,7 @@
 <template name="clinicasPpal">
-     {{> cabecera}} 
-    <div class="ui grid">
-        {{> Template.dynamic template = main}}        
+    {{> cabecera}}
+    <div class="row">
+        {{> Template.dynamic template = main}}
     </div>
     {{> footer}}
 
@@ -11,92 +11,65 @@
     <!-- contenido -->
     <!-- menú busqueda -->
     {{> filtrosClinicas}}
-        <!-- lista dummie -->
-    <div  class="contenidoBloque ui eight wide centered column">
-        <div class="ui divided link items">
-            <!-- loop items en Estudios -->
-            {{> itemClinicas }}
+    <!-- lista dummie -->
+    <div class="contenidoBloque row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="list-group">
+                <!-- loop items en Estudios -->
+                {{> itemClinicas }}
+            </div>
         </div>
     </div>
 </template>
 
 <template name="clinica">
     <!-- contenido -->
-    <div class="ui horizontal divider"></div>
-    <div class="contenidoBloque ui sixteen wide column">
-        <div class="ui two column grid mn stackable">
-            <!--columna izquierda -->
-            <div class="eleven wide column">
-                <!-- info clinica -->
-                <div class="ui fluid card">
-                    <div class="content">
-                        <div class="header">
-                            Nombre del a Clínica
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        <h4 class="ui header">
-                            Servicios de la clínica
-                        </h4>
-                        <p></p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate elementum magna quis mollis. Suspendisse vel elementum mi. Etiam condimentum imperdiet quam. Duis sem ligula, vehicula quis volutpat ut, tincidunt ut eros. Vestibulum condimentum mi non cursus dictum. Vestibulum ut metus nec libero rutrum pellentesque. Fusce sit amet efficitur enim.
-                    </div>
+    <div class="contenidoBloque row">
+        <!--columna izquierda -->
+        <div class="col-sm-8">
+            <!-- info clinica -->
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">Nombre de la Clínica</h4>
                 </div>
-                <!-- banner -->
-                <div class="ui fluid card">
-                    <div class="image banner25">
-                        <img src="images/500x150banners.png">
-                    </div>
+                <div class="card-block">
+                    <h5>Servicios de la clínica</h5>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate elementum magna quis mollis. Suspendisse vel elementum
+                        mi. Etiam condimentum imperdiet quam. Duis sem ligula, vehicula quis volutpat ut, tincidunt ut eros.
+                        Vestibulum condimentum mi non cursus dictum. Vestibulum ut metus nec libero rutrum pellentesque.
+                        Fusce sit amet efficitur enim.
+                    </p>
                 </div>
             </div>
-            <!-- columna derecha -->
-            <div class="five wide column">
-                <div class="ui fluid card">
-                    <div class="content">
-                        <div class="header">
-                            Datos útiles
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        <h4 class="ui header">
-                            <i class="ui marker icon"></i>
-                            Mapa
-                        </h4>
-                    </div>
-                    <div class="image">
-                            <img src="images/mapa.png">
-                        </div>
-                    <div class="extra content">
-                        <h4 class="ui header">
-                            <i class="ui wait icon"></i>
-                            Horarios
-                        </h4>
-                        {{ horarios }}
-                    </div>
-                    <div class="extra content">
-                        <h4 class="ui header">
-                            <i class="ui doctor icon"></i>
-                            Contacto
-                        </h4>
-                    </div>
+            <!-- banner -->
+            <div class="card">
+                <img class="card-img-top img-fluid" src="images/500x150banners.png" alt="Card image cap">
+            </div>
+        </div>
+        <!-- columna derecha -->
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">Datos útiles</div>
+                <img class="card-img-top img-fluid" src="images/mapa.png" alt="Card image cap">
+                <div class="card-block">
+                    <h5> Horarios</h5>
+                    {{ horarios }}
+                </div>
+                <div class="card-block">
+                    <h5> Contacto</h5>
                 </div>
             </div>
         </div>
     </div>
 </template>
 
- <template name="itemClinicas">              
+<template name="itemClinicas">
     <!-- item -->
     {{ #each clinicas }}
-    <div class="item">
-        <div class="content">  
-            <div class="header">
-            <a href="/clinicas/{{ nombre }}">{{nombre}} </a>
-            </div>
-            <div class="description">
-                <p>{{calle}} </p>
-            </div>
-        </div>
-    </div>
+    <a href="#" class="list-group-item" style="text-align-center">
+        <h5 class="list-group-item-heading"><a href="/clinicas/{{ nombre }}">{{nombre}}</a></h5>
+        <p class="list-group-item-text">{{ calle }}</p>
+    </a>
     {{/each}}
- </template>
+</template>
