@@ -2,40 +2,25 @@
   <!-- menú busqueda -->
   {{> filtrosEstudios }}
   <!-- contenido -->
-  <div class="contenidoBloquePC ui sixteen wide column">
-    <form id="formularioEstudios" class="ui form fluid">
-      <div class="ui {{#if pantallaInicio}}two{{else}}three{{/if}} column grid stackable">
-        {{> listaPC }}
-        {{#if pantallaInicio}} 
-            {{> vacio }} 
-          {{else}} 
-            {{> detallesPC }} 
-            {{> botonesOpciones }}
-        {{/if}}
-      </div>
+  <div class="contenidoBloque row">
+    <form id="formularioEstudios" class="form">
+      {{> listaPC }} {{#if pantallaInicio}} {{> vacio }} {{else}} {{> detallesPC }} {{/if}}
     </form>
   </div>
 </template>
 
 <template name="listaPC">
   <!-- lista dummie -->
-  <div class="four wide column">
-    <h4>Estudios publicados</h4>
-    <div class="ui  divider"></div>
+  <div class="col-sm-3">
+    <h5>Estudios publicados</h5>
     <!-- lista dummie -->
-    <div class="ui divided link items" id="contenidoFormPC">
+    <div class="list-group" id="contenidoFormPC">
       <!-- loop items en Estudios -->
       {{#each estudios }}
-      <div class="item">
-        <div class="content">
-          <a class="ui selPC" data-value="{{titulo}}">{{titulo}}</a>
-          <div class="description">
-            <p>{{ descripcion }}</p>
-          </div>
-          <div class="ui right floated">
-            {{#if esPromo}}<i class="like icon"></i>{{/if}}
-          </div>
-        </div>
+      <div class="list-group-item">
+        <a class="list-group-item-heading selPC" data-value="{{titulo}}">{{titulo}}</a>
+        <p class="list-group-item-text">{{ descripcion }}</p>
+        {{#if esPromo}}espromo{{/if}}
       </div>
       {{/each}}
     </div>
@@ -44,80 +29,77 @@
 
 <template name="detallesPC">
   <!-- formularios de edición -->
-  <div class="seven wide column">
-    <h4>Datos generales</h4>
-    <div class="ui  divider"></div>
-    <div class="required field">
-      <label>Nombre del estudio</label>
-      <input  name="titulo" placeholder="{{ estudios.titulo }}" type="text">
-    </div>
-    <div class="field">
+  <div class="col-sm-5">
+    <h5>Datos generales</h5>
+    <fieldset class="form-group  has-danger">
+      <label>Nombre del estudio</label> {{estudios.titulo}}
+      <input class="form-control" type="text" name="titulo" placeholder="{{estudios.titulo}}">
+      <small class="text-muted form-control-danger">El nombre del estudio es obligatorio</small>
+    </fieldset>
+    <fieldset class="form-group">
       <label>Información</label>
-      <textarea  name="descripcion" rows="4" placeholder="{{ estudios.descripcion }}"></textarea>
-    </div>
-    <div class="field">
+      <textarea class="form-control" name="descripcion" rows="4" placeholder="{{ estudios.descripcion }}"></textarea>
       <label>Requisitos</label>
-      <textarea name="requisitos" rows="4" placeholder="{{ estudios.requisitos }}"></textarea>
-    </div>
+      <textarea class="form-control" name="requisitos" rows="4" placeholder="{{ estudios.requisitos }}"></textarea>
+    </fieldset>
   </div>
   <!-- Columna precios y filtros -->
-  <div class="five wide column">
-   <h4>Filtros</h4>
-{{> listaSexo }}
-            <div class="ui cestudio selection dropdown">
-        <!-- input por estudio -->
-        <input name="tipo" type="hidden">
-        <div class="default text">{{estudios.tipo}}</div>
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          {{#each tipoEstudio}}
-          <div class="item" data-value="{{ id }}">{{ texto }}</div>
-          {{/each}}
+  <div class="col-sm-4">
+    <h5>Filtros</h5>
+    <form class="form-inline">
+      <div class="form-group">
+        <div class="nav-item csexo dropdown ">
+          <!-- input tipo sexo -->
+          <input class="form-control" name="sexoLista " type="hidden">
+          <button class="btn btn-secondary dropdown-toggle " type="button " id="dropdownMenu10 " data-toggle="dropdown" aria-haspopup="true "
+            aria-expanded="false ">{{ selSexo }}</button>
+          <div class="dropdown-menu " aria-labelledby="dropdownMenu10 ">
+            {{#each tipoSexo}}
+            <a class="cs dropdown-item " data-value="{{ id }} ">{{ texto }}</a> {{/each}}
+          </div>
         </div>
       </div>
-    <h4>Precio</h4>
-    <div class="ui  divider"></div>
-    <div class="{{#if selPromo}}disabled{{/if}} field">
+      <div class="form-group">
+        <div class="nav-item cestudio dropdown">
+          <!-- input tipo -->
+          <input class="form-control" name="tipo" type="hidden">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">{{ estudios.tipo }}</button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            {{#each tipoEstudio}}
+            <a class="cs dropdown-item" data-value="{{ id }}">{{ texto }}</a> {{/ each}}
+          </div>
+        </div>
+      </div>
+    </form>
+    <h5>Precio</h5>
+    <fieldset class=" form-group" disabled="{{#if selPromo}}disabled{{/if}}">
       <label>Precio</label>
-      <input type="text" name="precio" placeholder="{{ estudios.precio }}">
-    </div>
-    <!-- sección promocion -->
-    <div class="ui segment" style="padding:10px">
-       {{selPromo}}
-      <div class="ui small form">
-        <div class=" sliderPromo  checkbox">
-          <input name="esPromoCheck" type="checkbox" checked="{{#if selPromo}}checked{{/if}}">
-          <label>Estudio en promoción</label>
-        </div>
-        <div class="ui divider"></div>
-        <div class="{{#unless selPromo}}disabled{{/unless}} field ">
-          <label>Precio en promoción</label>
-          <input type="text" name="precioPromo" placeholder="añadir precio en DB">
-        </div>
+      <input class="form-control" type="text" name="precio" placeholder="{{ estudios.precio }}">
+      <!-- sección promocion -->
+    </fieldset>
+    <fieldset class="form-group">
+      <div class="checkbox">
+        <label>
+         <input class="sliderPromo" name="esPromoCheck " type="checkbox" checked="{{#if selPromo}}checked{{/if}}">
+        Estudio en promoción
+       </label>
       </div>
-    </div>    
+    </fieldset>
+    <fieldset class=" form-group" disabled="{{#unless selPromo}}disabled{{/unless}}">
+
+
+      <label>Precio en promoción</label>
+      <input class="form-control " type="text " name="precioPromo " placeholder="añadir precio en DB ">
+    </fieldset>
+    {{> botonesOpciones }}
   </div>
 </template>
 
-<template name="botonesOpciones">
-  <div id="botonesSubmit" class=" three ui buttons">
-    <div class="ui left clear  button">cancelar cambios</div>
-    <div class="ui red center attached button">Eliminar</div>
-    <div class="ui green right attached button submit btnGuardar">Guardar</div>
+<template name="botonesOpciones ">
+  <div id="botonesSubmit" class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-secundary">Cancelar cambios</button>
+    <button type="button" class="btn btn-danger ">Eliminar</button>
+    <button type="submit" class="btn btn-primary btnguardar">Guardar</button>
   </div>
-</template>
-
-
-<template name="listaSexo" >
-        <div class="ui csexo selection dropdown">
-        <!-- input tipo sexo -->
-        <input name="sexoLista" type="hidden" fireOnInit="true">
-        <div class="default text">{{selSexo}}</div>
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          {{#each tipoSexo}}
-          <div class="item" data-value="{{ id }}">{{ texto }}</div>
-          {{/each}}
-        </div>
-      </div>
 </template>

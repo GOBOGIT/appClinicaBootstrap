@@ -6,7 +6,7 @@ import './filtrosEstudios.html';
 
 state = new ReactiveDict();
 
-Template.itemEstudios.onCreated(function(){
+Template.filtrosEstudios.onCreated(function(){
     state.set('btPromo', false);
     state.set('nSexo','Sexo indistinto');
     state.set('nestudio','Por tipo / todos');

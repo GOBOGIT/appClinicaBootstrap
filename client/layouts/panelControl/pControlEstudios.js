@@ -11,56 +11,50 @@ var sel;
 
 Template.listaPC.onCreated(function () {
     state.set('pantallaInicio', true);
+    state.set('cSexo', 'Sexo indistinto');
+    //state.set('nestudio','Por tipo / todos');
     Meteor.subscribe('itemEstudios');
 });
 
 // onRender para codigo Jquery
-Template.listaSexo.onRendered(function () {
+Template.detallesPC.onRendered(function () {
     // activa Jquery
-   this.$('.ui.dropdown').dropdown({on: 'hover'});
-});
-
-Template.listaSexo.helpers({
-    tipoSexo: function(){
-        return listaSexo;
-    },
-
-    selSexo:function() {
-    Meteor.defer(() => {
-      $('.csexo').dropdown('clear');
-      $('.csexo').dropdown('refresh');
-    });
-        console.log(sel.sexo);
-        return sel.sexo;
-    },
-
- 
-
-
+    this.$('.ui.dropdown').dropdown({ on: 'hover' });
 });
 
 Template.detallesPC.helpers({
-    selPromo: function() {
-        return selP.get(); 
-    } ,
-    estudios: function() {
-         // limpia la validación del formulario   
-        resetForm();
-        // recoge datos de la colleción según selección
-       sel = Estudios.findOne({ 'titulo': state.get('seleccion') });
-       selP.set(sel.esPromo);
-
-          
-       return sel;
+    tipoSexo: function () {
+        return listaSexo;
     },
 
+    selSexo: function () {
+        console.log(listaSexo('texto'));
+      //  var result = listaSexo[sel.sexo];
+       
+            return 'hols';
+        },
 
+            selPromo: function () {
+                return selP.get();
+            },
+            estudios: function () {
+                // limpia la validación del formulario   
+                // resetForm();
+                // recoge datos de la colleción según selección
+                sel = Estudios.findOne({ 'titulo': state.get('seleccion') });
+                selP.set(sel.esPromo);
+                return sel;
+            },
 
+ 
 });
 
-Template.panelControlPpalEstudios.helpers({
-    pantallaInicio() {
-        return state.get('pantallaInicio');
+// activa o desactiva las opciones de promoción
+Template.detallesPC.events({
+    'click .sliderPromo'(event) {
+        event.preventDefault();
+        selP.set(!selP.get())
+        // state.set('esPromo', !state.get('esPromo'));
     }
 });
 
@@ -72,106 +66,44 @@ Template.listaPC.events({
         // se probó console.log( $(event.target).closest('a').data('value'));
         // pero en las actulizaciones del item no refrescaba
 
-       state.set('seleccion', $(event.target).closest('a').text());
+        state.set('seleccion', $(event.target).closest('a').text());
+    }
+});
+
+Template.panelControlPpalEstudios.helpers({
+    pantallaInicio() {
+        return state.get('pantallaInicio');
     }
 });
 
 Template.panelControlPpalEstudios.events({
-        
-    'submit #formularioEstudios'(event){
- 
+
+    'submit #formularioEstudios'(event) {
+
         event.preventDefault();
 
-      var objeto = {};
+        var objeto = {};
 
         // esta propiedad es obligatoria
-          objeto.titulo = event.target.titulo.value;
-          objeto.esPromo = event.target.esPromoCheck.checked;
-          // propiedades opcionales
-          if( event.target.descripcion.value) objeto.descripcion = event.target.descripcion.value;
-          if( event.target.requisitos.value) objeto.requisitos = event.target.requisitos.value;
-          if( event.target.precio.value) objeto.precio = event.target.precio.value;
-         
+        objeto.titulo = event.target.titulo.value;
+        objeto.esPromo = event.target.esPromoCheck.checked;
+        // propiedades opcionales
+        if (event.target.descripcion.value) objeto.descripcion = event.target.descripcion.value;
+        if (event.target.requisitos.value) objeto.requisitos = event.target.requisitos.value;
+        if (event.target.precio.value) objeto.precio = event.target.precio.value;
 
-        var setObjeto = { $set: objeto};
-      
-        Estudios.update(sel._id, setObjeto );
-        state.set('seleccion', event.target.titulo.value) ;
+
+        var setObjeto = { $set: objeto };
+
+        Estudios.update(sel._id, setObjeto);
+        state.set('seleccion', event.target.titulo.value);
         state.set('pantallaInicio', false);
-       
+
     }
 });
 
-// activa o desactiva las opciones de promoción
-Template.detallesPC.events({
-    'click .sliderPromo'(event) {
-      event.preventDefault();
-     selP.set(!selP.get())
-     // state.set('esPromo', !state.get('esPromo'));
-    }
-});
+
 
 function resetForm() {
-  var form = $('#formularioEstudios');
-  form.form('reset');
-  form.form('clear');
-  // remove the error class so it wont show error msg ( semantic-ui bug ? )
-  form.removeClass('error');
-
-
-
-
-
+    var form = $('#formularioEstudios');
 }
-
-//********** VALIDACION
-
-Template.detallesPC.onRendered(function () {
-    
-    $('.ui.form')
-        .form({
-            fields: {
-                titulo: {
-                    identifier: 'titulo',
-                    rules: [{
-                        type: "empty"
-                    }]
-                },
-                validoHasta: {
-                    identifier: 'validoHasta',
-                    optional: true,
-                    rules: [{
-                        type: "regExp[/^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d$/]"
-                    }]
-                },
-                validoDesde: {
-                    identifier: 'validoDesde',
-                    optional: true,
-                    rules: [{
-                        type: "regExp[/^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d$/]"
-                    }]
-                },
-                promoValidoHasta: {
-                    identifier: 'promoValidoHasta',
-                    optional: true,
-                    rules: [{
-                        type: "regExp[/^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d\\d$/]"
-                    }]
-                },
-                precioPromo: {
-                    identifier: 'precioPromo',
-                    optional: true,
-                    rules: [{
-                        type: "number"
-                    }]
-                },
-                precio: {
-                    identifier: 'precio',
-                    optional: true,
-                    rules: [{
-                        type: "number"
-                    }]
-                },
-            }
-        });
-});
